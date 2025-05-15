@@ -10,6 +10,8 @@ from features.lbp import extract_lbp_features
 from features.sobel import extract_sobel_features
 from features.landmarks import extract_landmark_features
 
+
+
 model = joblib.load("F:/UIT HK4/Introduction to Computer Vision CS231/FER_Demo/FER/model/combined_model.pkl")
 classes = ['Surprise', 'Fear', 'Disgust', 'Happy', 'Sad', 'Angry', 'Neutral']
 
@@ -46,8 +48,6 @@ if uploaded_file is not None:
 
             face_pil = Image.fromarray(cv2.cvtColor(face_img_resized, cv2.COLOR_BGR2RGB))
 
-            st.image(face_pil, caption="Detected Face", use_column_width=True)
-
             gray_img = cv2.cvtColor(face_img_resized, cv2.COLOR_BGR2GRAY)
 
             st.subheader("Feature Extraction...")
@@ -71,12 +71,43 @@ if uploaded_file is not None:
             # Debug shape
             st.write(f"Combined features shape: {X_combined.shape}")
 
-            # Prediction
+# Prediction
             pred = model.predict(X_combined)[0]
             prob = model.predict_proba(X_combined)[0]
 
-            st.subheader("Prediction")
-            st.write(f"**Predicted Expression:** {classes[pred]}")
-            st.write("**Probabilities:**")
-            for i, cls in enumerate(classes):
-                st.write(f"{cls}: {prob[i]*100:.2f}%")
+            col1, col2 = st.columns([1.5, 1], gap="large")  # Tăng khoảng cách giữa 2 cột
+
+            with col1:
+                face_for_model = face_pil.copy()
+
+# Resize ảnh chỉ để hiển thị to hơn (không ảnh hưởng tới mô hình)
+                display_face = face_pil.resize((100, 100))  
+
+                # Hiển thị trong UI
+                st.image(display_face, caption="Detected Face",use_container_width=True)
+
+            with col2:
+                st.markdown(
+                    """
+                    <style>
+                    .emotion-header {
+                        font-size: 24px;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+                    .emotion-section {
+                        font-size: 18px;
+                        line-height: 1.8;
+                        padding-left: 10px;
+                    }
+                    </style>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+                st.markdown('<div class="emotion-header">Prediction</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="emotion-section"><b>Predicted Expression:</b> {classes[pred]}</div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+
+
+
