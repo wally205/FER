@@ -3,8 +3,6 @@ import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
-# Standardize the features (important for PCA)
-scaler = StandardScaler()
 
 def extract_sobel_features(images):
     all_features = []

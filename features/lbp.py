@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
 from skimage.feature import local_binary_pattern
-from tqdm.notebook import tqdm
+from tqdm import tqdm
+
 
 def extract_lbp_features(images, P=8, R=1, grid_size=(6, 6)):
     lbp_features = []

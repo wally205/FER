@@ -2,7 +2,7 @@ from skimage.feature import hog
 from skimage.color import rgb2gray
 from skimage.transform import resize
 import numpy as np
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 
 
 def extract_hog_features(images, resize_shape=(64, 64)):

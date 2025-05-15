@@ -11,7 +11,7 @@ from features.sobel import extract_sobel_features
 from features.landmarks import extract_landmark_features
 
 model = joblib.load("F:/UIT HK4/Introduction to Computer Vision CS231/FER_Demo/FER/model/combined_model.pkl")
-classes = ['Suprise', 'Fear', 'Disgust', 'Happy', 'Sad', 'Angry', 'Neural']
+classes = ['Surprise', 'Fear', 'Disgust', 'Happy', 'Sad', 'Angry', 'Neutral']
 
 st.title("Facial Expression Recognition 🎭")
 uploaded_file = st.file_uploader("Upload a face image", type=["jpg", "png", "jpeg"])
